@@ -18,7 +18,7 @@ namespace Application.Services
         {
             _context = context;
             _mapper = mapper;
-            _genericrepo = genericrepo; 
+            _genericrepo = genericrepo;
         }
 
         public async Task<IEnumerable<BookingResponseDto>> GetAllAsync()
@@ -34,11 +34,12 @@ namespace Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(BookingUpdateDto bookingUpdateDto,int id)
+        public async Task UpdateAsync(BookingUpdateDto bookingUpdateDto, int id)
         {
             var booking = await _genericrepo.GetByIdAsync(id);
-            
-            _context.Update(_mapper.Map(bookingUpdateDto,booking!));
+
+            _context.Update(_mapper.Map(bookingUpdateDto, booking!));
+
             await _context.SaveChangesAsync();
         }
     }
