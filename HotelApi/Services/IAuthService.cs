@@ -1,12 +1,12 @@
-﻿using Core.Entities;
-using Core.Models;
+﻿using Application.DTOs;
+using Core.Entities;
 
 
 namespace HotelApi.Services
 {
     public interface IAuthService
     {
-        Task<User?> RegisterAsync(UserDTO request);
-        Task<string> LoginAsync(UserDTO request);
+        Task<User?> RegisterAsync(UserDto request);
+        Task<string> LoginAsync(UserDto request);
     }
 }

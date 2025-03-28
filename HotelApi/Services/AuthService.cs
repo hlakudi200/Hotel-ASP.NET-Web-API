@@ -1,8 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Application.DTOs;
 using Core.Entities;
-using Core.Models;
+
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace HotelApi.Services
 {
     public class AuthService(HotelApiContext context, IConfiguration configuration) : IAuthService
     {
-        public async Task<string> LoginAsync(UserDTO request)
+        public async Task<string> LoginAsync(UserDto request)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
             if (user is null)
@@ -29,7 +30,7 @@ namespace HotelApi.Services
             return token;
         }
 
-        public async Task<User?> RegisterAsync(UserDTO request)
+        public async Task<User?> RegisterAsync(UserDto request)
         {
 
             if (await context.Users.AnyAsync(u => u.Email == request.Email))

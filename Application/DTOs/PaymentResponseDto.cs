@@ -10,5 +10,9 @@ namespace Application.DTOs
     {
         public DateTime PaymentDate { get; set; }
         public decimal Amount { get; set; }
+        public string CurrencyCode { get; set; } = string.Empty;
+        public string CurrencyName { get; set; } = string.Empty;
+        public bool PaymentStatus { get; set; }
+
     }
 }

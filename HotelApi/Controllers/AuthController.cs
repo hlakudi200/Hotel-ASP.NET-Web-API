@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Models;
+﻿using Application.DTOs;
+using Core.Entities;
 using HotelApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +13,7 @@ namespace HotelApi.Controllers
 
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserDTO request)  //we basicaly just pass in the string email and string password ,hen we can use that,so we need an object of type User which when we use the context methods we will be provided the user ,in case of registering and loggin in a user 
+        public async Task<ActionResult<User>> Register(UserDto request)  //we basicaly just pass in the string email and string password ,hen we can use that,so we need an object of type User which when we use the context methods we will be provided the user ,in case of registering and loggin in a user 
         {  //all the other inputs must be included using the dto 
 
             var user = await authService.RegisterAsync(request);
@@ -25,7 +25,7 @@ namespace HotelApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDTO request)
+        public async Task<ActionResult<string>> Login(UserDto request)
         {
             var token = await authService.LoginAsync(request);
 
@@ -53,10 +53,6 @@ namespace HotelApi.Controllers
         }
 
 
-
-
-
-        //we can serilize in form of data ,even if is not the user 
 
 
     }
