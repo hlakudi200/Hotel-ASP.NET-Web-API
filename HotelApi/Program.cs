@@ -27,6 +27,7 @@ namespace HotelApi
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRespository>();
             builder.Services.AddControllers();
 
             // Enables server-side auto-validation
