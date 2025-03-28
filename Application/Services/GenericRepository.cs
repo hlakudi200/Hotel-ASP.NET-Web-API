@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Services;
-using Core.Interfaces;
-using HotelApi.Data;
+﻿
+using Application.Interfaces;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-namespace Infrastructure
+using Core.Interfaces;
+namespace Application.Services
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
-    {    
+    {
         private readonly HotelApiContext _context;
         private readonly DbSet<T> _dbsets;
 
@@ -30,7 +26,7 @@ namespace Infrastructure
 
         public async Task DeleteAsync(int id)
         {
-            var entity=await _dbsets.FindAsync(id);
+            var entity = await _dbsets.FindAsync(id);
             if (entity != null)
             {
                 _dbsets.Remove(entity);

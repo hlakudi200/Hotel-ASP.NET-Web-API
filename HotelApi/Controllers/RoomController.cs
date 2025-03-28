@@ -1,7 +1,7 @@
-﻿using Application.Services;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Core.Entities;
-using Core.Interfaces;
-using Infrastructure;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,14 +11,14 @@ namespace HotelApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class RoomController : ControllerBase
-    {   
-        private readonly Application.Services.IGenericRepository<Room> _roomRepository;
-        private readonly IRoomRepository _roomRepository2;
+    {
+        private readonly IGenericRepository<Room> _roomRepositoryFromGen;
+        private readonly IRoomRepository _roomRepository;
 
-        public RoomController(Application.Services.IGenericRepository<Room> roomRepository,IRoomRepository room)
-        {   
-            _roomRepository = roomRepository;
-            _roomRepository2 = room;
+        public RoomController(IGenericRepository<Room> roomRepository, IRoomRepository room)
+        {
+            _roomRepositoryFromGen = roomRepository;
+            _roomRepository = room;
         }
 
         // GET: api/<RoomController>
@@ -33,21 +33,16 @@ namespace HotelApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var room= await _roomRepository.GetByIdAsync(id);
+            var room = await _roomRepositoryFromGen.GetByIdAsync(id);
             return Ok(room);
         }
 
-        [HttpGet("GetAvailableRooms")]
-        public async Task<IActionResult> GetAvailableRooms()
-        {
-            var availabaeRooms= await _roomRepository2.GetAvailableRoomsAsync();
-            return Ok(availabaeRooms);
-        }
+
 
         [HttpGet("GetAvailableRooms{bookStatus}")]
         public async Task<IActionResult> GetRoomByStatus(bool bookStatus)
         {
-            var rooms = await _roomRepository2.GetByBookStatus(bookStatus);
+            var rooms = await _roomRepository.GetByBookStatus(bookStatus);
             return Ok(rooms);
         }
 
@@ -59,12 +54,20 @@ namespace HotelApi.Controllers
             {
                 return BadRequest();
             }
-            await _roomRepository.AddAsync(room);
-            return CreatedAtAction(nameof(Get),new {id=room.Id},room);
+            await _roomRepositoryFromGen.AddAsync(room);
+            return CreatedAtAction(nameof(Get), new { id = room.Id }, room);
         }
 
-  
-        
-      
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] RoomDto room)
+        {
+            if (room == null)
+            {
+                return BadRequest();
+            }
+            await _roomRepository.UpdateAsync(room);
+            return Ok("Room Updated");
+        }
+
     }
 }

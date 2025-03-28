@@ -1,31 +1,43 @@
 ﻿using System.Text;
+using Application.Interfaces;
+using Application.Mappings;
 using Application.Services;
-using Core.Interfaces;
-using HotelApi.Data;
 using HotelApi.Services;
-using Infrastructure;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
+using FluentValidation.AspNetCore;
+using Application.Validators;
+using FluentValidation;
 namespace HotelApi
 {
     public class Program
     {
+        [Obsolete]
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<HotelApiContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("HotelApiContext") ?? throw new InvalidOperationException("Connection string 'HotelApiContext' not found.")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("HotelApiContext")
+            ?? throw new InvalidOperationException("Connection string 'HotelApiContext' not found."),
+            b => b.MigrationsAssembly("Infrastructure")));
 
-            builder.Services.AddScoped(typeof(Application.Services.IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-            // Add services to the container.
-
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
+
+            // Enables server-side auto-validation
+            builder.Services.AddFluentValidationAutoValidation();
+
+            // Enables client-side validation (optional)
+            builder.Services.AddFluentValidationClientsideAdapters();
+
+            // Registers validators from assembly
+            builder.Services.AddValidatorsFromAssemblyContaining<BookingRequestDtoValidator>();
+
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -43,17 +55,16 @@ namespace HotelApi
 
                 // Add Security Requirement
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-            },
-            new string[] {}
-        }
-    });
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new string[] {}
+                    }
+                });
             });
-
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -67,7 +78,7 @@ namespace HotelApi
                     ValidateIssuerSigningKey = true
                 };
             });
-
+            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
             builder.Services.AddControllers();
             builder.Services.AddScoped<IAuthService, AuthService>();
 

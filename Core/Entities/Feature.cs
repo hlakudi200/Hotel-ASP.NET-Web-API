@@ -9,6 +9,8 @@ namespace Core.Entities
         [Key]
         public int Id { get; set; }
         public string FeatureName { get; set; } = string.Empty;
+
+
     }
 
 

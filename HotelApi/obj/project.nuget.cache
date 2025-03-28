@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "9iGd8iKg9E0=",
+  "dgSpecHash": "b8ao2vgK06M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rapudi Hlakudi\\Desktop\\HotelApi\\HotelApi\\HotelApi\\HotelApi.csproj",
+  "projectFilePath": "C:\\Users\\Rapudi Hlakudi\\Documents\\GitHub\\Hotel-ASP.NET-Web-API\\HotelApi\\HotelApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

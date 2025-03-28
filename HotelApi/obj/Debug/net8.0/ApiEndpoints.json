@@ -90,8 +90,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "booking",
-        "Type": "Core.Entities.Booking",
+        "Name": "bookingDto",
+        "Type": "Application.DTOs.BookingRequestDto",
         "IsRequired": true
       }
     ],
@@ -127,8 +127,8 @@
         "IsRequired": true
       },
       {
-        "Name": "booking",
-        "Type": "Core.Entities.Booking",
+        "Name": "bookingDto",
+        "Type": "Application.DTOs.BookingUpdateDto",
         "IsRequired": true
       }
     ],
@@ -225,6 +225,22 @@
   },
   {
     "ContainingType": "HotelApi.Controllers.RoomController",
+    "Method": "Put",
+    "RelativePath": "api/Room",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "room",
+        "Type": "Application.DTOs.RoomDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.RoomController",
     "Method": "Get",
     "RelativePath": "api/Room/{id}",
     "HttpMethod": "GET",
@@ -237,16 +253,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HotelApi.Controllers.RoomController",
-    "Method": "GetAvailableRooms",
-    "RelativePath": "api/Room/GetAvailableRooms",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

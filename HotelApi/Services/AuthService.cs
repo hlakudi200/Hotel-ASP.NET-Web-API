@@ -1,9 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Core.Models;
 using Core.Entities;
-using HotelApi.Data;
+using Core.Models;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -43,7 +43,7 @@ namespace HotelApi.Services
 
             user.Email = request.Email;
             user.PasswordHash = hashedPassword;
-            user.Role = request.Role;
+            user.Role = request.Role!;
             context.Users.Add(user);
             context.SaveChanges();
 

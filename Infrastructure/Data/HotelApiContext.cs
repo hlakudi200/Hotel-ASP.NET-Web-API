@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Entities;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace HotelApi.Data
+namespace Infrastructure.Data
 {
     public class HotelApiContext : DbContext
     {
-  
-        public HotelApiContext (DbContextOptions<HotelApiContext> options)
+
+        public HotelApiContext(DbContextOptions<HotelApiContext> options)
             : base(options)
         {
         }
@@ -23,6 +19,23 @@ namespace HotelApi.Data
         public DbSet<Client> Clients { get; set; } = default!;
         public DbSet<Feature> Features { get; set; } = default!;
         public DbSet<RoomFeature> RoomFeatures { get; set; } = default!;
-    
+
+        public DbSet<Payment> Payments { get; set; } = default!;
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RoomFeature>()
+                .HasOne(rf => rf.Room)
+                .WithMany(r => r.RoomFeatures)
+                .HasForeignKey(rf => rf.RoomId);
+
+            modelBuilder.Entity<RoomFeature>()
+                .HasOne(rf => rf.Feature)
+                .WithMany()
+                .HasForeignKey(rf => rf.FeatureId);
+
+        }
+
     }
 }

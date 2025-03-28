@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +9,12 @@ namespace HotelApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
-    {  
-        private readonly IGenericRepository<Client>  _clientRepository;
+    {
+        private readonly IGenericRepository<Client> _clientRepository;
 
         public ClientController(IGenericRepository<Client> clientRepository)
         {
-            _clientRepository = clientRepository;   
+            _clientRepository = clientRepository;
         }
 
         // GET: api/<ClientController>
@@ -28,8 +28,8 @@ namespace HotelApi.Controllers
         // GET api/<ClientController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
-        {  
-            var client =await _clientRepository.GetByIdAsync(id);
+        {
+            var client = await _clientRepository.GetByIdAsync(id);
             return Ok(client);
         }
 
@@ -37,11 +37,12 @@ namespace HotelApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Client client)
         {
-            if (client == null) {
+            if (client == null)
+            {
                 return BadRequest();
             }
 
-            await  _clientRepository.AddAsync(client);
+            await _clientRepository.AddAsync(client);
             return CreatedAtAction(nameof(Get), new { id = client.Id }, client);
 
         }
@@ -50,11 +51,11 @@ namespace HotelApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Client client)
         {
-            if (client == null) 
+            if (client == null)
             {
                 return BadRequest();
             }
-           
+
             await _clientRepository.UpdateAsync(client);
             return Ok(client);
         }

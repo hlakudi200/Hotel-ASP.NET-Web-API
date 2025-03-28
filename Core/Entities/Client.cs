@@ -16,7 +16,7 @@ namespace Core.Entities
         public string Surname { get; set; } = string.Empty;
         public string IdNumber { get; set; } = string.Empty;
         [EmailAddress]
-        public string EmailAddress { get; set; } 
+        public string EmailAddress { get; set; }
         public string ContactNo { get; set; } = string.Empty;
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }

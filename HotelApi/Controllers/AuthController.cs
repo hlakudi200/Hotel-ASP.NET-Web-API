@@ -1,5 +1,5 @@
-﻿using Core.Models;
-using Core.Entities;
+﻿using Core.Entities;
+using Core.Models;
 using HotelApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

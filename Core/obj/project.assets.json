@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rapudi Hlakudi\\Desktop\\HotelApi\\HotelApi\\Core\\Core.csproj",
+      "projectUniqueName": "C:\\Users\\Rapudi Hlakudi\\Documents\\GitHub\\Hotel-ASP.NET-Web-API\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "C:\\Users\\Rapudi Hlakudi\\Desktop\\HotelApi\\HotelApi\\Core\\Core.csproj",
+      "projectPath": "C:\\Users\\Rapudi Hlakudi\\Documents\\GitHub\\Hotel-ASP.NET-Web-API\\Core\\Core.csproj",
       "packagesPath": "C:\\Users\\Rapudi Hlakudi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rapudi Hlakudi\\Desktop\\HotelApi\\HotelApi\\Core\\obj\\",
+      "outputPath": "C:\\Users\\Rapudi Hlakudi\\Documents\\GitHub\\Hotel-ASP.NET-Web-API\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
