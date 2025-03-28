@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.DTOs;
+﻿using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
-using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

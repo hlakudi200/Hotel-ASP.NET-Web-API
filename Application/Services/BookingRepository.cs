@@ -4,7 +4,6 @@ using AutoMapper;
 using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 
 namespace Application.Services
@@ -34,7 +33,7 @@ namespace Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(BookingUpdateDto bookingUpdateDto, int id)
+        public async Task UpdateAsync(BookingRequestDto bookingUpdateDto, int id)
         {
             var booking = await _genericrepo.GetByIdAsync(id);
 

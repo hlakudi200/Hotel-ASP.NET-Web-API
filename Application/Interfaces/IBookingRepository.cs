@@ -1,5 +1,4 @@
 ﻿using Application.DTOs;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Interfaces
 {
@@ -7,6 +6,6 @@ namespace Application.Interfaces
     {
         Task<IEnumerable<BookingResponseDto>> GetAllAsync();
         Task AddAsync(BookingRequestDto bookingDto);
-        Task UpdateAsync(BookingUpdateDto bookingUpdateDto, int id);
+        Task UpdateAsync(BookingRequestDto bookingUpdateDto, int id);
     }
 }

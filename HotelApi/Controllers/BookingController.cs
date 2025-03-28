@@ -54,7 +54,7 @@ namespace HotelApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] BookingUpdateDto bookingDto)
+        public async Task<IActionResult> Put(int id, [FromBody] BookingRequestDto bookingDto)
         {
             if (bookingDto == null)
             {
