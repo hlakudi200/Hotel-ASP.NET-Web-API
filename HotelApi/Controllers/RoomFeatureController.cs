@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,33 +9,39 @@ namespace HotelApi.Controllers
     [ApiController]
     public class RoomFeatureController : ControllerBase
     {
-        // GET: api/<RoomFeatureController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IRoomFeatureService _roomFeatureService;
+        public RoomFeatureController(IRoomFeatureService roomFeatureService)
         {
-            return new string[] { "value1", "value2" };
+            _roomFeatureService = roomFeatureService;
         }
 
-        // GET api/<RoomFeatureController>/5
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var roomFeatures = await _roomFeatureService.GetAllAsync();
+
+            return Ok(roomFeatures);
+        }
+
+
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<RoomFeatureController>
+
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<RoomFeatureController>/5
+
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<RoomFeatureController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

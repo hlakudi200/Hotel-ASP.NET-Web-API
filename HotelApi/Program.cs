@@ -32,6 +32,7 @@ namespace HotelApi
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IClientService, ClientService>();
             builder.Services.AddScoped<IBookingRepository, BookingRespository>();
+            builder.Services.AddScoped<IRoomFeatureService,RoomFeatureService>();
             builder.Services.AddControllers();
 
             // Enables server-side auto-validation
