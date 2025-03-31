@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Infrastructure.Data;
 
 namespace Application.Interfaces
 {
