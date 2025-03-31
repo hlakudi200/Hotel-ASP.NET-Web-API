@@ -1,19 +1,19 @@
-﻿using Application.Interfaces;
-using Core.Entities;
+﻿using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Application.DTOs;
+using Infrastructure.Interfaces;
 
 
-namespace Application.Services
+
+namespace Infrastructure.Respositories
 {
     public class RoomRepository : IRoomRepository
     {
         private readonly HotelApiContext _context;
-
-        public RoomRepository(HotelApiContext context)
+        public RoomRepository(HotelApiContext context, IGenericRepository<Room> genericRepository)
         {
             _context = context;
+
         }
 
 
@@ -40,6 +40,8 @@ namespace Application.Services
         }
 
 
+
+
         public async Task<IEnumerable<object>> GetAllAsync()
         {
             var rooms = await _context.Rooms
@@ -58,23 +60,8 @@ namespace Application.Services
             return rooms;
         }
 
-        public async Task<Room> UpdateAsync(RoomDto request)
-        {
-            var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == request.Id);
+ 
 
-
-            if (room == null)
-            {
-                return null;
-            }
-
-            room.Locked = request.Locked;
-            room.Booked = request.Booked;
-            _context.Update(room);
-            await _context.SaveChangesAsync();
-            return room;
-
-        }
 
     }
 }

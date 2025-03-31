@@ -1,6 +1,6 @@
 ﻿using Core.Interfaces;
 
-namespace Application.Interfaces
+namespace Infrastructure.Interfaces
 {
     public interface IGenericRepository<T> where T : class, IEntity
     {

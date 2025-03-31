@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Core.Entities;
 using FluentValidation;
 using Infrastructure.Data;
+using Infrastructure.Interfaces;
 
 namespace Application.Validators
 {
@@ -36,6 +37,7 @@ namespace Application.Validators
             RuleFor(x => x.CheckOutDate)
                 .NotEmpty().WithMessage("Check-out date is require")
                 .GreaterThanOrEqualTo(x => x.CheckInDate).WithMessage("Check-out date must be after the check-in date");
+
         }
 
         private bool RoomAvailable(int roomId)

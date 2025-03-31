@@ -1,9 +1,8 @@
-﻿
-using Application.Interfaces;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Core.Interfaces;
-namespace Application.Services
+using Infrastructure.Interfaces;
+namespace Infrastructure.Respositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {

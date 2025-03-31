@@ -2,6 +2,7 @@
 using Application.DTOs;
 using Application.Interfaces;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,11 @@ namespace HotelApi.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IGenericRepository<Booking> _bookingRepositoryFromGen;
-        private readonly IBookingRepository _bookingRepository;
-        public BookingController(IGenericRepository<Booking> bookingRepositoryFromGen, IBookingRepository bookingRepository)
+        private readonly IBookingServices _bookingService;
+        public BookingController(IGenericRepository<Booking> bookingRepositoryFromGen, IBookingServices bookingService)
         {
             _bookingRepositoryFromGen = bookingRepositoryFromGen;
-            _bookingRepository = bookingRepository;
+            _bookingService = bookingService;
         }
         //we are creating a instace of type Igeneric? we are not directly creating an instace but we are injecting a service.
         //When the Booking Controller is instatiated,the IGenericRepo will be injected through the constructor 
@@ -27,14 +28,14 @@ namespace HotelApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var bookings = await _bookingRepository.GetAllAsync();
+            var bookings = await _bookingService.GetAllAsync();
             return Ok(bookings);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var booking = await _bookingRepositoryFromGen.GetByIdAsync(id);
+            var booking = await _bookingService.GetByIdAsync(id);
             return Ok(booking);
         }
 
@@ -48,9 +49,9 @@ namespace HotelApi.Controllers
             {
                 return BadRequest();
             }
-            await _bookingRepository.AddAsync(bookingDto);
+            await _bookingService.AddAsync(bookingDto);
+            return CreatedAtAction(nameof(Get), bookingDto);
 
-            return Ok("object Created");
         }
 
         [HttpPut("{id}")]
@@ -61,8 +62,7 @@ namespace HotelApi.Controllers
                 return BadRequest();
             }
 
-
-            await _bookingRepository.UpdateAsync(bookingDto, id);
+            await _bookingService.UpdateAsync(bookingDto, id);
             return NoContent();
         }
     }

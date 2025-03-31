@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,12 +12,12 @@ namespace HotelApi.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly IGenericRepository<Room> _roomRepositoryFromGen;
-        private readonly IRoomRepository _roomRepository;
+        //private readonly IGenericRepository<Room> _roomRepositoryFromGen;
+        private readonly IRoomService _roomRepository;
 
-        public RoomController(IGenericRepository<Room> roomRepository, IRoomRepository room)
+        public RoomController(IRoomService room)
         {
-            _roomRepositoryFromGen = roomRepository;
+
             _roomRepository = room;
         }
 
@@ -29,12 +30,12 @@ namespace HotelApi.Controllers
         }
 
         // GET api/<RoomController>/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            var room = await _roomRepositoryFromGen.GetByIdAsync(id);
-            return Ok(room);
-        }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Get(int id)
+        //{
+        //    var room = await _roomRepositoryFromGen.GetByIdAsync(id);
+        //    return Ok(room);
+        //}
 
 
 
@@ -47,18 +48,19 @@ namespace HotelApi.Controllers
 
         // POST api/<RoomController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Room room)
+        public async Task<IActionResult> Post([FromBody] RoomAddRequestDto room)
         {
             if (room == null)
             {
                 return BadRequest();
             }
-            await _roomRepositoryFromGen.AddAsync(room);
-            return CreatedAtAction(nameof(Get), new { id = room.Id }, room);
+
+            await _roomRepository.CreateAsync(room);
+            return CreatedAtAction(nameof(Get), room);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] RoomDto room)
+        public async Task<IActionResult> Put([FromBody] RoomRequestDto room)
         {
             if (room == null)
             {
