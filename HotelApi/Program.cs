@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using FluentValidation.AspNetCore;
 using Application.Validators;
 using FluentValidation;
+using System.Reflection;
 namespace HotelApi
 {
     public class Program
