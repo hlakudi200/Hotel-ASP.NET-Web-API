@@ -30,7 +30,6 @@ namespace HotelApi
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IBookingServices, BookingService>();
-            builder.Services.AddScoped<IPaymentRepository, PaymentServices>();
             builder.Services.AddScoped<IBookingRepository, BookingRespository>();
             builder.Services.AddControllers();
 
@@ -39,8 +38,8 @@ namespace HotelApi
 
             // Enables client-side validation (optional)
             builder.Services.AddFluentValidationClientsideAdapters();
-
             // Registers validators from assembly
+
             builder.Services.AddValidatorsFromAssemblyContaining<BookingRequestDtoValidator>();
 
             builder.Services.AddSwaggerGen(c =>
