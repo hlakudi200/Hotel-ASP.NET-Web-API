@@ -27,9 +27,10 @@ namespace HotelApi
             b => b.MigrationsAssembly("Infrastructure")));
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IBookingServices, BookingService>();
+            builder.Services.AddScoped<IRoomService, RoomService>();
+            builder.Services.AddScoped<IClientService, ClientService>();
             builder.Services.AddScoped<IBookingRepository, BookingRespository>();
             builder.Services.AddControllers();
 
