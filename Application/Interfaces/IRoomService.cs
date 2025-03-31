@@ -4,12 +4,13 @@ using Core.Entities;
 
 namespace Application.Interfaces
 {
-    public interface IRoomRepository
+    public interface IRoomService
     {
 
         Task<IEnumerable<object>> GetAllAsync();
         Task<IEnumerable<object>> GetByBookStatus(bool? bookStatus);
-        Task<Room> UpdateAsync(RoomDto request);
+        Task<Room> UpdateAsync(RoomRequestDto request);
+        Task<Room> CreateAsync(RoomAddRequestDto request);
 
     }
 }

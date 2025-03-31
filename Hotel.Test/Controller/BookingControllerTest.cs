@@ -10,6 +10,7 @@ using Core.Entities;
 using FakeItEasy;
 using FluentAssertions;
 using HotelApi.Controllers;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Test.Controller
@@ -17,11 +18,11 @@ namespace Hotel.Test.Controller
     public class BookingControllerTest
     {
         private readonly IGenericRepository<Booking> _bookingRepositoryFromGen;
-        private readonly IBookingRepository _bookingRepository;
+        private readonly IBookingServices _bookingRepository;
         public BookingControllerTest()
         {
             _bookingRepositoryFromGen = A.Fake<IGenericRepository<Booking>>();
-            _bookingRepository = A.Fake<IBookingRepository>();
+            _bookingRepository = A.Fake<IBookingServices>();
 
         }
 

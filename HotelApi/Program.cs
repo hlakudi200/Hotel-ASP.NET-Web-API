@@ -11,7 +11,8 @@ using Microsoft.OpenApi.Models;
 using FluentValidation.AspNetCore;
 using Application.Validators;
 using FluentValidation;
-using System.Reflection;
+using Infrastructure.Interfaces;
+using Infrastructure.Respositories;
 namespace HotelApi
 {
     public class Program
@@ -26,9 +27,11 @@ namespace HotelApi
             b => b.MigrationsAssembly("Infrastructure")));
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-            builder.Services.AddScoped<IPaymentRepository, PaymentRespository>();
+            builder.Services.AddScoped<IBookingServices, BookingService>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentServices>();
+            builder.Services.AddScoped<IBookingRepository, BookingRespository>();
             builder.Services.AddControllers();
 
             // Enables server-side auto-validation

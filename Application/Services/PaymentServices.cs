@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
-    public class PaymentRespository : IPaymentRepository
+    public class PaymentServices : IPaymentRepository
     {
         private readonly HotelApiContext _context;
         private readonly IMapper _mapper;
         //Service Injection or dependecy injection 
-        public PaymentRespository(HotelApiContext context, IMapper mapper)
+        public PaymentServices(HotelApiContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

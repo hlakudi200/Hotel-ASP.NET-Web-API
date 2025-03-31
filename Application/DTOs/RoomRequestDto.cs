@@ -1,6 +1,6 @@
 ﻿namespace Application.DTOs
 {
-    public class RoomDto
+    public class RoomRequestDto
     {
         public int Id { get; set; }
         public bool Booked { get; set; }

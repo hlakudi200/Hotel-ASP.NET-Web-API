@@ -13,6 +13,8 @@ namespace Application.Mappings
             CreateMap<BookingRequestDto, Booking>();
             CreateMap<BookingUpdateDto, Booking>();
             CreateMap<Payment, PaymentResponseDto>();
+            CreateMap<RoomRequestDto, Room>();
+            CreateMap<RoomAddRequestDto, Room>();
         }
     }
 }

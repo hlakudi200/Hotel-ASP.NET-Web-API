@@ -2,10 +2,11 @@
 
 namespace Application.Interfaces
 {
-    public interface IBookingRepository
+    public interface IBookingServices
     {
         Task<IEnumerable<BookingResponseDto>> GetAllAsync();
         Task AddAsync(BookingRequestDto bookingDto);
-        Task UpdateAsync(BookingRequestDto bookingUpdateDto, int id);
+        Task<string> UpdateAsync(BookingRequestDto bookingUpdateDto, int id);
+        Task<BookingResponseDto> GetByIdAsync(int id);
     }
 }

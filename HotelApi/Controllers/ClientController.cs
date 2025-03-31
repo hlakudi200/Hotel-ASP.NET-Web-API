@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
