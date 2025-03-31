@@ -1,9 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using AutoMapper;
 using Core.Entities;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace HotelApi.Controllers
 {
@@ -12,21 +14,23 @@ namespace HotelApi.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IGenericRepository<Client> _clientRepository;
-
-        public ClientController(IGenericRepository<Client> clientRepository)
+        private readonly IMapper _mapper;
+        public ClientController(IGenericRepository<Client> clientRepository, IMapper mapper)
         {
             _clientRepository = clientRepository;
+            _mapper = mapper;
         }
 
-        // GET: api/<ClientController>
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var clients = await _clientRepository.GetAllAsync();
-            return Ok(clients);
+            var ClientsDto = _mapper.Map<IEnumerable<ClientResponseDto>>(clients);
+            return Ok(ClientsDto);
         }
 
-        // GET api/<ClientController>/5
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -34,7 +38,7 @@ namespace HotelApi.Controllers
             return Ok(client);
         }
 
-        // POST api/<ClientController>
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Client client)
         {
@@ -42,13 +46,12 @@ namespace HotelApi.Controllers
             {
                 return BadRequest();
             }
-
             await _clientRepository.AddAsync(client);
             return CreatedAtAction(nameof(Get), new { id = client.Id }, client);
 
         }
 
-        // PUT api/<ClientController>/5
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Client client)
         {
