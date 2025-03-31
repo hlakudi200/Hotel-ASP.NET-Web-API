@@ -4,15 +4,13 @@ using Core.Entities;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace HotelApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RoomController : ControllerBase
     {
-        //private readonly IGenericRepository<Room> _roomRepositoryFromGen;
+
         private readonly IRoomService _roomRepository;
 
         public RoomController(IRoomService room)
@@ -21,22 +19,13 @@ namespace HotelApi.Controllers
             _roomRepository = room;
         }
 
-        // GET: api/<RoomController>
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var rooms = await _roomRepository.GetAllAsync();
             return Ok(rooms);
         }
-
-        // GET api/<RoomController>/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var room = await _roomRepositoryFromGen.GetByIdAsync(id);
-        //    return Ok(room);
-        //}
-
 
 
         [HttpGet("GetAvailableRooms{bookStatus}")]
@@ -46,7 +35,7 @@ namespace HotelApi.Controllers
             return Ok(rooms);
         }
 
-        // POST api/<RoomController>
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RoomAddRequestDto room)
         {
