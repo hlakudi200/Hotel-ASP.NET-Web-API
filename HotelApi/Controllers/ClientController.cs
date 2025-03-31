@@ -13,55 +13,53 @@ namespace HotelApi.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IGenericRepository<Client> _clientRepository;
-        private readonly IMapper _mapper;
-        public ClientController(IGenericRepository<Client> clientRepository, IMapper mapper)
+        private readonly IClientService _clientService;
+
+        public ClientController(IClientService clientService, IMapper mapper)
         {
-            _clientRepository = clientRepository;
-            _mapper = mapper;
+            _clientService = clientService;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var clients = await _clientRepository.GetAllAsync();
-            var ClientsDto = _mapper.Map<IEnumerable<ClientResponseDto>>(clients);
-            return Ok(ClientsDto);
+            var clients = await _clientService.GetAllAsync();
+            return Ok(clients);
         }
 
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var client = await _clientRepository.GetByIdAsync(id);
+            var client = await _clientService.GetByIdAsync(id);
             return Ok(client);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Client client)
+        public async Task<IActionResult> Post([FromBody] ClientRequestDto clientRequestDto)
         {
-            if (client == null)
+            if (clientRequestDto == null)
             {
                 return BadRequest();
             }
-            await _clientRepository.AddAsync(client);
-            return CreatedAtAction(nameof(Get), new { id = client.Id }, client);
+            await _clientService.AddAsync(clientRequestDto);
+            return CreatedAtAction(nameof(Get), clientRequestDto);
 
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Client client)
+        public async Task<IActionResult> Put(int id, [FromBody] ClientRequestDto clientRequestDto)
         {
-            if (client == null)
+            if (clientRequestDto == null)
             {
                 return BadRequest();
             }
 
-            await _clientRepository.UpdateAsync(client);
-            return Ok(client);
+            await _clientService.UpdateAsync(clientRequestDto, id);
+            return Ok(clientRequestDto);
         }
 
     }
